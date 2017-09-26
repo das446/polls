@@ -1,0 +1,10 @@
+
+   python3 -m venv ~/.virtualenvs/djangodev
+   source ~/.virtualenvs/djangodev/bin/activate
+   pip install Django==1.11.5
+
+   python manage.py runserver
+
+   python manage.py makemigration polls
+   python manage.py sqlmigrate polls 001
+   
