@@ -10,7 +10,7 @@
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="{% url 'polls:vote' question.id %}" method="post">
+<form action="{% url 'polls:edit' question.id %}" method="post">
 {% csrf_token %}
 <textarea id="question" rows="2" cols="50">{{question.question_text }}</textarea>
 {% for choice in question.choice_set.all %}
@@ -18,5 +18,5 @@
     <input type="text" name="choice" value="{{ choice.choice_text }}">
 {% endfor %}
 </br>
-<input type="submit" value="Edit" />
+<input type="submit" value="Edit"/>
 </form>

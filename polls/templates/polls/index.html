@@ -1,23 +1,6 @@
 {%load static%}
 <head>
 <link rel="stylesheet" type="text/css" href="{%static 'polls/styles.css'%}"/>
-<style>
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    border: 1px solid #000000;
-}
-
-td, th {
-    border: 1px solid #000000;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #aaaaaa;
-}
-</style>
 </head>
 
 {% if latest_question_list %}
@@ -31,5 +14,7 @@ tr:nth-child(even) {
     {% endfor %}
 </table>
 {% else %}
+<br>
 <p>No polls are available.</p>
 {% endif %}
+<button><a href="{% url 'polls:create'%}">Create</a></button>

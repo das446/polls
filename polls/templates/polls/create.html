@@ -1,0 +1,36 @@
+{%load static%}
+<head>
+    <script type="text/javascript" src="{%static 'polls/create.js'%}"></script>
+    <style>
+        #question{
+            font-size: 18px;
+        }
+    </style>
+
+
+
+</head>
+
+<h1>Create question:</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'polls:create'%}" method="post">
+{% csrf_token %}
+<textarea id="question" rows="2" cols="50"></textarea>
+{% for choice in question.choice_set.all %}
+    </br>
+    <input type="text" name="choice" value="{{ choice.choice_text }}">
+{% endfor %}
+</br>
+<b>Choices:</b>
+<ul id="choices">
+    <li name="choice0">
+        <input type="text"> <button onclick="removeChoice(0)">Remove</button>
+    </li>
+</ul>
+
+<br>
+<input type="button" onclick="addChoice()" value="+">
+<input type="submit" value="Create"/>
+</form>

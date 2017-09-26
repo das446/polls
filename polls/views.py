@@ -16,6 +16,13 @@ class IndexView(generic.ListView):
         return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
 
+class CreateView(generic.ListView):
+    template_name = 'polls/create.html'
+    context_object_name = 'create_question'
+    def get_queryset(self):
+        return Question.objects
+
+
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
@@ -25,7 +32,7 @@ class EditView(generic.DetailView):
     template_name = 'polls/edit.html'
 
 
-class ResultsView(generic.DetailView):
+class ResultsView(generic.ListView):
     model = Question
     template_name = 'polls/results.html'
 
@@ -44,4 +51,6 @@ def vote(request, question_id):
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
-
+def edit(request, question_id):
+    question=get_object_or_404(Question, pk=question_id)
+    return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
