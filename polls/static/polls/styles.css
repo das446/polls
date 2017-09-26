@@ -1,3 +1,15 @@
-li a{
-    color:green
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    border: 10px solid #000000;
+}
+
+td, th {
+    border: 10px solid #000000;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #00dddd;
 }

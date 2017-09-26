@@ -1,13 +1,35 @@
 {%load static%}
-
+<head>
 <link rel="stylesheet" type="text/css" href="{%static 'polls/styles.css'%}"/>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #000000;
+}
+
+td, th {
+    border: 1px solid #000000;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #aaaaaa;
+}
+</style>
+</head>
 
 {% if latest_question_list %}
-<ul>
+<table style="width:100%;">
     {% for question in latest_question_list %}
-    <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    <tr>
+        <td><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></th>
+        <td><a href="{% url 'polls:edit' question.id %}">Edit</a></th>
+        <td><a href="{% url 'polls:edit' question.id %}">Delete</a></th>
+    </tr>
     {% endfor %}
-</ul>
+</table>
 {% else %}
 <p>No polls are available.</p>
 {% endif %}

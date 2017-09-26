@@ -1,12 +1,22 @@
-<h1>{{ question.question_text }}</h1>
+<head>
+    <style>
+        #question{
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<h1>Edit question:</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <form action="{% url 'polls:vote' question.id %}" method="post">
 {% csrf_token %}
+<textarea id="question" rows="2" cols="50">{{question.question_text }}</textarea>
 {% for choice in question.choice_set.all %}
-    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+    </br>
+    <input type="text" name="choice" value="{{ choice.choice_text }}">
 {% endfor %}
-<input type="submit" value="Vote" />
+</br>
+<input type="submit" value="Edit" />
 </form>
