@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from .models import Question, Choice
+from .models import Question, Choice, Vote
 
 class ChoiceInline(admin.StackedInline):
     model = Choice
-    extra = 2
+    extra = 0
 
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
