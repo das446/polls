@@ -2,8 +2,8 @@ from django.contrib import admin
 
 from .models import Question, Choice, Vote
 
-class ChoiceInline(admin.StackedInline):
-    model = Choice
+class VoteInline(admin.StackedInline):
+    model = Vote
     extra = 0
 
 class QuestionAdmin(admin.ModelAdmin):
@@ -11,6 +11,7 @@ class QuestionAdmin(admin.ModelAdmin):
         (None,               {'fields': ['question_text']}),
         ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     ]
-    inlines = [ChoiceInline]
+    inlines = [VoteInline]
 
 admin.site.register(Question,QuestionAdmin)
+admin.site.register(Choice)
