@@ -56,3 +56,15 @@ def vote(request, question_id):
 def edit(request, question_id):
     question=get_object_or_404(Question, pk=question_id)
     return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+def create(request, question_id):
+    question=Question(question_text=request.POST['choice'].question_text)
+    print(question)
+    return HttpResponseRedirect(reverse('polls:details', args=(question.id,)))
+
+def delete(request, question_id):
+    question=Question.objects.get(id=question_id)
+    question.delete()
+    list=Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
+    context_object_name = {'latest_question_list' : list}
+    return render(request, 'polls/index.html', context_object_name)

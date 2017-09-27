@@ -21,6 +21,7 @@ function addChoice(){
 function removeChoice(itemid){
     console.log(itemid);
     var list = document.getElementById('choices');
+    if(list.childElementCount==1){return;}
     var item = document.getElementById(itemid);
     console.log(item);
     list.removeChild(item);

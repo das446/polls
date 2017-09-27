@@ -22,7 +22,7 @@ class Question(models.Model):
 class Vote(models.Model):
     question = models.ForeignKey(Question, related_name='votes')
     choice = models.ForeignKey(Choice, related_name='votes')
-    votes = models.IntegerField(default=1)
+    votes = models.IntegerField(default=0)
 
     @staticmethod
     def addVote(q,c): #should this be given a question or a string

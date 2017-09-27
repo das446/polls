@@ -10,18 +10,15 @@
             font-size: 18px;
         }
     </style>
-
-
-
 </head>
 
 <h1>Create question:</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="{% url 'polls:create'%}" method="post">
+<form action="{% url 'polls:created'%}" method="post">
 {% csrf_token %}
-<textarea id="question" rows="2" cols="50"></textarea>
+<textarea name="question_text" id="question" rows="2" cols="50"></textarea>
 {% for choice in question.choice_set.all %}
     </br>
     <input type="text" name="choice" value="{{ choice.choice_text }}">
