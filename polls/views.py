@@ -6,6 +6,8 @@ from django.views import generic
 from django.utils import timezone
 
 from .models import *
+from django import forms
+from django .forms import formset_factory
 
 
 class IndexView(generic.ListView):
@@ -55,16 +57,36 @@ def vote(request, question_id):
 
 def edit(request, question_id):
     question=get_object_or_404(Question, pk=question_id)
+    question.question_text=request.POST['question_text']
+    question.removeAllChoices()
     return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
-def create(request, question_id):
-    question=Question(question_text=request.POST['choice'].question_text)
-    print(question)
-    return HttpResponseRedirect(reverse('polls:details', args=(question.id,)))
+def create(request):
+    question=Question(question_text=request.POST['question_text'])
+    question.pub_date=timezone.now()
+    choice_count=int(request.POST['choice_count'])
+    print(choice_count)
+
+    for x in range(0,choice_count):
+        name='choice'+str(x)
+        choice=Choice(choice_text=request.POST[name])
+        Vote.addVote(q=question,c=choice, amnt=0)
+
+    list = Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
+    context_object_name = {'latest_question_list': list}
+    return render(request, 'polls/index.html', context_object_name)
+
+
 
 def delete(request, question_id):
     question=Question.objects.get(id=question_id)
     question.delete()
-    list=Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
-    context_object_name = {'latest_question_list' : list}
+
+    list = Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
+    context_object_name = {'latest_question_list': list}
+    return render(request, 'polls/index.html', context_object_name)
+
+def get_index(self,request): #replacing the 3 lines above with this function doesn't work for some reason
+    list = Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
+    context_object_name = {'latest_question_list': list}
     return render(request, 'polls/index.html', context_object_name)

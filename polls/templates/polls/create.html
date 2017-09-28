@@ -19,18 +19,14 @@
 <form action="{% url 'polls:created'%}" method="post">
 {% csrf_token %}
 <textarea name="question_text" id="question" rows="2" cols="50"></textarea>
-{% for choice in question.choice_set.all %}
-    </br>
-    <input type="text" name="choice" value="{{ choice.choice_text }}">
-{% endfor %}
 </br>
 <b>Choices:</b>
-<ul id="choices">
-    <li name="choice0">
-        <input type="text"> <button onclick="removeChoice(0)">Remove</button>
+<ul id="choices" name="choices">
+    <li id="choice0">
+        <input name="choice0" type="text"> <input type='button' onclick="removeChoice('choice0')" value="Remove">
     </li>
 </ul>
-
+<input type="text" id="choice_count" name="choice_count" value="1" hidden>
 <br>
 <input type="button" onclick="addChoice()" value="+">
 <input type="submit" value="Create"/>

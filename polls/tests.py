@@ -38,3 +38,14 @@ class M2MTests(TestCase):
     def test_WhatNo1(self):
         v=Vote.get(q='What?',c='No')
         self.assertEqual(v.votes, 1)
+
+    def test_remove_and_add_choices(self):
+        q=create_question(question_text='test?',days=0)
+        c=Choice.objects.create(choice_text='test!')
+        q.addChoice(c)
+        c1=Choice.objects.create(choice_text='delete')
+        q.addChoice(c1)
+        q.removeAllChoices()
+        print(q.choice_set.all())
+
+
